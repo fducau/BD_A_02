@@ -29,8 +29,6 @@ p_header = ['summons_number', 'issue_date', 'violation_code',
             'vehicle_make', 'vehicle_year']
 
 
-
-
 if __name__ == "__main__":
     if len(sys.argv) != 3:
         print("Usage: bigram <parking-violations-file> <open-violations-file>", file=sys.stderr)
@@ -47,7 +45,7 @@ if __name__ == "__main__":
 
     parking_v = lines_parking.map(lambda x: (x[p_header.index('summons_number')],
                                              '{0}, {1}, {2}, {3}'.format(x[p_header.index('plate_id')],
-                                                                         x[p_header.index('violation_precinct')],
+                                                                         x[p_header.index('violation_precint')],
                                                                          x[p_header.index('violation_code')],
                                                                          x[p_header.index('issue_date')])))
     out = parking_v.subtractByKey(open_v)
