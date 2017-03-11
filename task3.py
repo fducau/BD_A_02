@@ -41,14 +41,13 @@ if __name__ == "__main__":
 
     open_v = lines_open.map(lambda x: (x[o_header.index('license_type')],
                                        float(x[o_header.index('payment_amount')])))
-    
-    total_count = open_v.aggregateByKey((0,0),
-                                        lambda x, y: (float(x[0]) + y, x[1] + 1),  # Seq function
+
+    total_count = open_v.aggregateByKey((0.,0.),
+                                        lambda x, y: (x[0] + float(y), x[1] + 1.),  # Seq function
                                         lambda a, b: (a[0] + b[0], a[1] + b[1]))  # Comb function
 
 
     out = total_count.mapValues(lambda v: '{0}, {1}'.format(v[0], v[0] / v[1]))
-    out = out.map(lambda x: '{0}\t{1}'.format(x[0], x[1]))
     out.saveAsTextFile('task3.out')
 
     sc.stop()
