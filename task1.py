@@ -6,6 +6,7 @@ from pyspark import SparkContext
 import string
 from csv import reader
 
+# spark-submit task1.py /user/ecc290/HW1data/parking-violations.csv /user/ecc290/HW1data/open-violations.csv
 o_header = ['summons_number', 'plate',
             'license_type',
             'county', 'state', 'prescint',
@@ -42,7 +43,7 @@ if __name__ == "__main__":
     lines_parking = sc.textFile(parking_file, 1).mapPartitions(lambda x: reader(x))
     lines_open = sc.textFile(open_file, 1).mapPartitions(lambda x: reader(x))
 
-    lines_parking = sc.paralellize(lines_parking)
+    lines_parking = sc.parallelize(lines_parking)
     lines_open = sc.parallelize(lines_open)
 
     open_v = lines_open.map(lambda x: (x[o_header.index('summons_number')], None))
