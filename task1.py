@@ -45,15 +45,11 @@ if __name__ == "__main__":
 
     open_v = lines_open.map(lambda x: (x[o_header.index('summons_number')], None))
 
-    parking_v = lines_parking.map(lambda x: (x[p_header.index('summons_number')], 
+    parking_v = lines_parking.map(lambda x: (x[p_header.index('summons_number')],
                                              '{0}, {1}, {2}, {3}'.format(x[p_header.index('plate_id')],
                                                                          x[p_header.index('violation_precinct')],
                                                                          x[p_header.index('violation_code')],
                                                                          x[p_header.index('issue_date')])))
-
-    open_v = sc.parallelize(open_v)
-    parking_v = sc.parallelize(parking_v)
-
     open_v = parking_v.subtractByKey(parking_v)
     open_v.map(lambda x: '{0}\t{1}'.format(x[0], x[1]))
     open_v.saveAsTextFile('task1.out')
