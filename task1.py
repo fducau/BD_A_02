@@ -52,6 +52,6 @@ if __name__ == "__main__":
 
     open_v = parking_v.substractByKey(open_v)
     open_v.map(lambda x: '{0}\t{1}'.format(x[0], x[1]))
-    open_v.saveAsTextFile('Task1.out')
+    open_v.saveAsTextFile('task1.out')
 
     sc.stop()
