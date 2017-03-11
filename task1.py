@@ -42,13 +42,13 @@ if __name__ == "__main__":
     lines_parking = sc.textFile(parking_file, 1).mapPartitions(lambda x: reader(x))
     lines_open = sc.textFile(open_file, 1).mapPartitions(lambda x: reader(x))
 
-    open_v = lines_open.map(lambda x: (x[o_header.index('summons_number')], None)).glom()
+    open_v = lines_open.map(lambda x: (x[o_header.index('summons_number')], None))
 
     parking_v = lines_parking.map(lambda x: (x[p_header.index('summons_number')], 
                                              '{0}, {1}, {2}, {3}'.format(x[p_header.index('plate_id')],
                                                                          x[p_header.index('violation_precinct')],
                                                                          x[p_header.index('violation_code')],
-                                                                         x[p_header.index('issue_date')]))).glom()
+                                                                         x[p_header.index('issue_date')])))
 
     open_v = parking_v.substractByKey(open_v)
     open_v.map(lambda x: '{0}\t{1}'.format(x[0], x[1]))
