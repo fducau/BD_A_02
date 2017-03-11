@@ -49,7 +49,7 @@ if __name__ == "__main__":
                                                                          x[p_header.index('violation_code')],
                                                                          x[p_header.index('issue_date')])))
     out = parking_v.subtractByKey(open_v)
-    out.map(lambda x: '{0}\t{1}'.format(x[0], x[1]))
+    out = out.map(lambda x: '{0}\t{1}'.format(x[0], x[1]))
     out.saveAsTextFile('task1.out')
 
     sc.stop()
