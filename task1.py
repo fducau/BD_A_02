@@ -50,8 +50,8 @@ if __name__ == "__main__":
                                                                          x[p_header.index('violation_precinct')],
                                                                          x[p_header.index('violation_code')],
                                                                          x[p_header.index('issue_date')])))
-    open_v = parking_v.subtractByKey(parking_v)
-    open_v.map(lambda x: '{0}\t{1}'.format(x[0], x[1]))
-    open_v.saveAsTextFile('task1.out')
+    out = parking_v.subtractByKey(open_v)
+    out.map(lambda x: '{0}\t{1}'.format(x[0], x[1]))
+    out.saveAsTextFile('task1.out')
 
     sc.stop()
