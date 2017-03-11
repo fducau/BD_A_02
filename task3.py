@@ -40,10 +40,10 @@ if __name__ == "__main__":
     lines_open = sc.textFile(open_file, 1).mapPartitions(lambda x: reader(x))
 
     open_v = lines_open.map(lambda x: (x[o_header.index('license_type')],
-                                       float(x[o_header.index('payment_amount')])))
+                                       float(x[o_header.index('amount_due')])))
 
     total_count = open_v.aggregateByKey((0.,0.),
-                                        lambda x, y: (x[0] + float(y), x[1] + 1.),  # Seq function
+                                        lambda x, y: (x[0] + y, x[1] + 1.),  # Seq function
                                         lambda a, b: (a[0] + b[0], a[1] + b[1]))  # Comb function
 
 
