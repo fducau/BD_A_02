@@ -40,7 +40,7 @@ if __name__ == "__main__":
     lines_parking = sc.textFile(parking_file, 1).mapPartitions(lambda x: reader(x))
 
     parking_v = lines_parking.map(lambda x: (x[p_header.index('violation_code')], 1))
-    out = parking_v.countByKey(parking_v)
+    out = parking_v.countByKey()
     out = out.map(lambda x: '{0}\t{1}'.format(x[0], x[1]))
     out.saveAsTextFile('task2.out')
 
