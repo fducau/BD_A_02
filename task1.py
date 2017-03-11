@@ -42,6 +42,9 @@ if __name__ == "__main__":
     lines_parking = sc.textFile(parking_file, 1).mapPartitions(lambda x: reader(x))
     lines_open = sc.textFile(open_file, 1).mapPartitions(lambda x: reader(x))
 
+    lines_parking = sc.paralellize(lines_parking)
+    lines_open = sc.parallelize(lines_open)
+
     open_v = lines_open.map(lambda x: (x[o_header.index('summons_number')], None))
 
     parking_v = lines_parking.map(lambda x: (x[p_header.index('summons_number')], 
@@ -50,7 +53,7 @@ if __name__ == "__main__":
                                                                          x[p_header.index('violation_code')],
                                                                          x[p_header.index('issue_date')])))
 
-    open_v = parking_v.subtractByKey(open_v)
+    open_v = parking_v.subtractByKey(parking_v)
     open_v.map(lambda x: '{0}\t{1}'.format(x[0], x[1]))
     open_v.saveAsTextFile('task1.out')
 
