@@ -47,7 +47,7 @@ if __name__ == "__main__":
                                         lambda a, b: (a[0] + b[0], a[1] + b[1]))  # Comb function
 
 
-    out = total_count.mapValues(lambda v: '{}, {}'.format(v[0], v[0] / v[1]))
+    out = total_count.mapValues(lambda v: '{0}, {1}'.format(v[0], v[0] / v[1]))
     out = out.map(lambda x: '{0}\t{1}'.format(x[0], x[1]))
     out.saveAsTextFile('task3.out')
 
