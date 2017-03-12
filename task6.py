@@ -1,9 +1,7 @@
 from __future__ import print_function
 
 import sys
-from operator import add
 from pyspark import SparkContext
-import string
 from csv import reader
 
 o_header = ['summons_number', 'plate',
@@ -45,9 +43,7 @@ if __name__ == "__main__":
     parking_v = parking_v.reduceByKey(lambda x, y: x + y)
 
     out = parking_v.takeOrdered(20, key=lambda x: -x[1])
-
-    with open('task6.out', 'w') as f:
-        for x in out:
-            f.write('{0}\t{1}\n'.format(x[0], x[1]))
+    out = sc.parallelize(out).map(lambda x: '{0}\t{1}'.format(x[0], x[1]))
+    out.saveAsTextFile('task6.out')
 
     sc.stop()
