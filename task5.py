@@ -30,7 +30,7 @@ p_header = ['summons_number', 'issue_date', 'violation_code',
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: bigram <open-violations-file>", file=sys.stderr)
+        print("Usage: bigram <parking-violations-file>", file=sys.stderr)
         exit(-1)
 
     parking_file = sys.argv[1]
@@ -43,7 +43,7 @@ if __name__ == "__main__":
                                              1))
 
     parking_v = parking_v.reduceByKey(lambda x, y: x + y)
-    out = parking_v.max(key= lambda x: x[1]).map('{0}\t{1}')
+    out = parking_v.max(key= lambda x: x[1])
     with open('task5.out', 'w') as f:
         f.write('{0}\t{1}\n'.format(out[0], out[1]))
 
