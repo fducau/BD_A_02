@@ -43,7 +43,7 @@ if __name__ == "__main__":
                                              1))
 
     parking_v = parking_v.reduceByKey(lambda x, y: x + y)
-    out = sc.parallelize(parking_v.max(key= lambda x: x[1]))
+    out = sc.parallelize([parking_v.max(key= lambda x: x[1])])
     out = out.map(lambda x: '{0}\t{1}'.format(x[0], x[1]))
     out.saveAsTextFile('task5.out')
 
