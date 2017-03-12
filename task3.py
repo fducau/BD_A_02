@@ -1,9 +1,7 @@
 from __future__ import print_function
 
 import sys
-from operator import add
 from pyspark import SparkContext
-import string
 from csv import reader
 
 # spark-submit task1.py /user/ecc290/HW1data/parking-violations.csv /user/ecc290/HW1data/open-violations.csv
@@ -42,10 +40,9 @@ if __name__ == "__main__":
     open_v = lines_open.map(lambda x: (x[o_header.index('license_type')],
                                        float(x[o_header.index('amount_due')])))
 
-    total_count = open_v.aggregateByKey((0.,0.),
+    total_count = open_v.aggregateByKey((0., 0.),
                                         lambda x, y: (x[0] + y, x[1] + 1.),  # Seq function
                                         lambda a, b: (a[0] + b[0], a[1] + b[1]))  # Comb function
-
 
     out = total_count.mapValues(lambda v: '{0:.2f}, {1:.2f}'.format(v[0], v[0] / v[1]))
     out = out.map(lambda x: '{0}\t{1}'.format(x[0], x[1]))

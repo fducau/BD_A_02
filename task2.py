@@ -1,12 +1,9 @@
 from __future__ import print_function
 
 import sys
-from operator import add
 from pyspark import SparkContext
-import string
 from csv import reader
 
-# spark-submit task1.py /user/ecc290/HW1data/parking-violations.csv /user/ecc290/HW1data/open-violations.csv
 o_header = ['summons_number', 'plate',
             'license_type',
             'county', 'state', 'prescint',
