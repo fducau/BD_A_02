@@ -48,7 +48,7 @@ if __name__ == "__main__":
 
 
     out = total_count.mapValues(lambda v: '{0}, {1}'.format(v[0], v[0] / v[1]))
-    out = out.map(lambda x: '{0}\t{1}, {2}'.format(x[0], x[1], x[2]))
+    out = out.map(lambda x: '{0}\t{1}'.format(x[0], x[1]))
     out.saveAsTextFile('task3.out')
 
     sc.stop()
