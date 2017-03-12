@@ -48,10 +48,7 @@ if __name__ == "__main__":
 
     parking_v = parking_v.reduceByKey(lambda x, y: (x[0] + y[0], x[1] + y[1]))
 
-    out = parking_v.takeOrdered(20, key=lambda x: -x[1])
-
-    with open('task6.out', 'w') as f:
-        for x in out:
-            f.write('{0}\t{1}\n'.format(x[0], x[1]))
+    out = parking_v.map(lambda x: '{0}\t{1}, {2}'.format(x[0], x[1][0], x[1][2]))
+    out.saveAsTextFile('task7.out')
 
     sc.stop()
