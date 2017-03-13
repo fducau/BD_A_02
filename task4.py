@@ -1,9 +1,7 @@
 from __future__ import print_function
 
 import sys
-from operator import add
 from pyspark import SparkContext
-import string
 from csv import reader
 
 o_header = ['summons_number', 'plate',
@@ -30,7 +28,7 @@ p_header = ['summons_number', 'issue_date', 'violation_code',
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: bigram <open-violations-file>", file=sys.stderr)
+        print("Usage: bigram <parking-violations-file>", file=sys.stderr)
         exit(-1)
 
     parking_file = sys.argv[1]
