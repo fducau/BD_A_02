@@ -1,9 +1,7 @@
 from __future__ import print_function
 
 import sys
-from operator import add
 from pyspark import SparkContext
-import string
 from csv import reader
 
 o_header = ['summons_number', 'plate',
